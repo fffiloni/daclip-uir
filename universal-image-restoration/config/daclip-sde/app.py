@@ -62,6 +62,6 @@ def restore(image):
     torch.cuda.empty_cache()
     return output[:, :, [2, 1, 0]]
 
-examples = ["da-clip-examples/da-clip-example-1.png", "da-clip-examples/da-clip-example-2.png"]
+examples = ["da-clip-examples/da-clip-example-1.png", "da-clip-examples/da-clip-example-2.png", "da-clip-examples/da-clip-example-3.png"]
 interface = gr.Interface(fn=restore, inputs="image", outputs="image", title="Image Restoration with DA-CLIP", examples=examples)
 interface.launch()
