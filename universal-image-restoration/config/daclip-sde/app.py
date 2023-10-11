@@ -4,6 +4,10 @@ import argparse
 import sys
 import numpy as np
 import torch
+
+# Set max_split_size_mb to a suitable value, in megabytes (MB)
+torch.cuda.set_per_process_memory_fraction(0.6, device=0)  # Adjust the fraction as needed
+
 from PIL import Image
 from torchvision.transforms import Compose, Resize, CenterCrop, ToTensor, Normalize, InterpolationMode
 
@@ -41,6 +45,7 @@ def clip_transform(np_image, resolution=224):
 
 
 def restore(image):
+    torch.cuda.empty_cache()
     image = image / 255.
     img4clip = clip_transform(image).unsqueeze(0).to(device)
     with torch.no_grad(), torch.cuda.amp.autocast():
