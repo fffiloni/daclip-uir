@@ -54,6 +54,7 @@ def restore(image):
     model.test(sde)
     visuals = model.get_current_visuals(need_GT=False)
     output = util.tensor2img(visuals["Output"].squeeze())
+    torch.cuda.empty_cache()
     return output[:, :, [2, 1, 0]]
 
 interface = gr.Interface(fn=restore, inputs="image", outputs="image", title="Image Restoration with DA-CLIP")
